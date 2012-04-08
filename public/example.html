@@ -11,14 +11,17 @@
             var test = new mxhrmanager({
                 url:'example.mxhr'
             });
-            test.listen('text/javascript',function(){
-                console.log(arguments);
+            test.listen('Content-Type:text/javascript',function(data,mime){
+                console.log(data);
+                console.log(mime);
             });
-            test.listen('text/css',function(){
-                console.log(arguments);
+            test.listen('Content-Type:text/css',function(data,mime){
+                console.log(data);
+                console.log(mime);
             });
-            test.listen('image/jpeg',function(){
-                console.log(arguments);
+            test.listen('Content-Type:image/jpeg',function(data,mime){
+                console.log(data);
+                console.log(mime);
             });
             test.load();
         </script>

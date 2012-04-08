@@ -79,7 +79,7 @@ exports.load = function(lists, callback) {
 				if (!err) {
 					ret[i] = data;
 					if (notEmpty(ret) && ret.length === len) {
-						callback(null, ret.join(''));
+						callback(null, newline+ret.join(''));
 					}
 				} else {
 					callback(err);
