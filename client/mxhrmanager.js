@@ -182,5 +182,8 @@
 			}
 		}
 	};
+
+    win.mxhrmanager = mxhrmanager;
+
 })(window, document, jQuery, swfobject);
 
