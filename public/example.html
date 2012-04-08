@@ -2,13 +2,25 @@
 <html>
     <head>
         <title>mxhr example</title>
-        <script src='http://code.jquery.com/jquery-1.7.2.min.js'></script>
+        <script src='http://code.jquery.com/jquery-1.7.2.js'></script>
         <script src='https://raw.github.com/xiaojue/mxhrmanager/master/client/swfobject.js'></script>
         <script src='https://raw.github.com/xiaojue/mxhrmanager/master/client/mxhrmanager.js'></script>
     </head>
     <body>
         <script>
-
+            var test = new mxhrmanager({
+                url:'example.mxhr'
+            });
+            test.listen('text/javascript',function(){
+                console.log(arguments);
+            });
+            test.listen('text/css',function(){
+                console.log(arguments);
+            });
+            test.listen('image/jpeg',function(){
+                console.log(arguments);
+            });
+            test.load();
         </script>
     </body>
 </html>

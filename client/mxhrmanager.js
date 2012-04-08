@@ -9,7 +9,6 @@
 	mix = $.extend,
 	gid = new Date().valueOf(),
 	swfid = '_process' + gid,
-	ajax = $.ajax,
 	supportSwf = swf.hasFlashPlayerVersion('9.0.0'),
 	isLowIE = $.browser.msie && $.browser.version <= 7.0,
 	supportDataUrl = isLowIE ? false: true,
@@ -77,7 +76,7 @@
 		this._config = {
 			url: 'some.mxhr',
 			type: 'GET',
-			data: {},
+			data: null,
 			dataType: 'text',
 			xhr: createXhrObject
 		};
@@ -88,9 +87,11 @@
 	mxhrmanager.prototype = {
 		constructor: mxhrmanager,
 		load: function() {
-			var self = this;
-			this.req = ajax(self._config);
+			var self = this,cg=self._config;
+			this.req = cg.xhr;
+            this.req.open(cg.type,cg.url,true);
 			this.req.onreadystatechange = readyStateHandler;
+            this.req.send((!!cg.data)?cg.data:null);
 		},
 		getPacket: function(str) {
 			var self = this,
