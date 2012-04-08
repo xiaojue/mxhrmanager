@@ -87,13 +87,14 @@
 	mxhrmanager.prototype = {
 		constructor: mxhrmanager,
 		load: function() {
-			var self = this,cg=self._config;
+			var self = this,
+			cg = self._config;
 			this.req = cg.xhr;
-            this.req.open(cg.type,cg.url,true);
-			this.req.onreadystatechange = function(){
-                readyStateHandler(self);
-            };
-            this.req.send((!!cg.data)?cg.data:null);
+			this.req.open(cg.type, cg.url, true);
+			this.req.onreadystatechange = function() {
+				readyStateHandler(self);
+			};
+			this.req.send(( !! cg.data) ? cg.data: null);
 		},
 		getPacket: function(str) {
 			var self = this,
@@ -163,7 +164,7 @@
 		_processPayload: function() {
 			// Get rid of the boundary.
 			this.currentStream = this.currentStream.replace(this.boundary, '');
-      //remove the metadata
+			//remove the metadata
 			var pieces = this.currentStream.split(this.fieldDelimiter);
 			var mime = pieces[0];
 			var payload = pieces[1];
@@ -186,7 +187,7 @@
 		}
 	};
 
-    win.mxhrmanager = mxhrmanager;
+	win.mxhrmanager = mxhrmanager;
 
 })(window, document, jQuery, swfobject);
 
