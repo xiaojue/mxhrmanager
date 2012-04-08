@@ -8,7 +8,7 @@
 	var domready = swf.addDomLoadEvent,
 	mix = $.extend,
 	gid = new Date().valueOf(),
-	swfid = '_process' + git,
+	swfid = '_process' + gid,
 	ajax = $.ajax,
 	supportSwf = swf.hasFlashPlayerVersion('9.0.0'),
 	isLowIE = $.browser.msie && $.browser.version <= 7.0,
