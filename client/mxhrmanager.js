@@ -47,8 +47,8 @@
 			return req;
 		}
 	} (),
-	readyStateHandler = function() {
-		var mxhrmanager = this,
+	readyStateHandler = function(host) {
+		var mxhrmanager = host,
 		req = mxhrmanager.req;
 		if (req.readyState === 3 && mxhrmanager.ping === null) {
 			mxhrmanager.ping = win.setInterval(function() {
@@ -90,7 +90,9 @@
 			var self = this,cg=self._config;
 			this.req = cg.xhr;
             this.req.open(cg.type,cg.url,true);
-			this.req.onreadystatechange = readyStateHandler;
+			this.req.onreadystatechange = function(){
+                readyStateHandler(self);
+            };
             this.req.send((!!cg.data)?cg.data:null);
 		},
 		getPacket: function(str) {
