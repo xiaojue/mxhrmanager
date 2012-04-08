@@ -6,11 +6,11 @@
 
 var http = require('http'),
 fs = require('fs'),
-mxhrmanager = require('./xhrmanager.js');
+mxhrmanager = require('./mxhrmanager.js');
 
 var server = http.createServer(function(req, rep) {
-	var mxhrUrl = 'example.mxhr',
-	exampleUrl = 'example.html',
+	var mxhrUrl = '/example.mxhr',
+	exampleUrl = '/example.html',
 	examplePath = '/home/mxhrmanager/public/example.html',
 	publicUrl = '/home/mxhrmanager/public/',
 	assest = function() {
@@ -20,14 +20,17 @@ var server = http.createServer(function(req, rep) {
 		}
 		return files;
 	} ();
+	console.log(req.url);
 	if (req.url == mxhrUrl) {
+		console.log(assest);
 		mxhrmanager.load(assest, function(err, data) {
 			var header = {
-				'Content-Type': 'multipart/mixed',
-				'server': 'node-server'
+				'Content-Type': 'text/plain',
+				'server': 'node-server',
+				'Content-Length': data.length
 			};
 			if (!err) {
-				rep.writeHead('200', header);
+				rep.writeHead(200, header);
 				rep.write(data);
 				rep.end();
 			} else {
@@ -35,25 +38,23 @@ var server = http.createServer(function(req, rep) {
 			}
 		});
 	} else if (req.url == exampleUrl) {
-		var header = {
-			'Content-Type': 'text/html',
-			'server': 'node-server'
-		};
-		if (!err) {
-			fs.readFile(examplePath, 'utf-8', function(err, data) {
-				if (!err) {
-					rep.writeHead('200', header);
-					rep.write(data);
-					rep.end();
-				} else {
-					console.log(err);
-				}
-			});
-		} else {
-			console.log(err);
-		}
+		fs.readFile(examplePath, 'utf-8', function(err, data) {
+			var header = {
+				'Content-Type': 'text/html',
+				'Content-Length': data.length,
+				'server': 'node-server'
+			};
+			if (!err) {
+				rep.writeHead(200, header);
+				rep.write(data);
+				rep.end();
+			} else {
+				console.log(err);
+			}
+		});
 	}
 });
 
 server.listen(8000);
+console.log('start server on 8000');
 
