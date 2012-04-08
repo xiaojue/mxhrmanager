@@ -22,6 +22,7 @@
             test.listen('Content-Type:image/jpeg',function(data,mime){
                 console.log(data);
                 console.log(mime);
+                $('body').append('<img src="data:image/png;base64,'+data+'">')
             });
             test.load();
         </script>
