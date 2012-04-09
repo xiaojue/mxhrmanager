@@ -41,7 +41,7 @@ package{
        update();
        if(isLoad) stream.close();
        dispatchEvent(event);
-       ExternalInterface.call('console.log','complete');
+       ExternalInterface.call('mxhrmanager.complete','complete');
     }
     private function loadProgress(event:ProgressEvent):void{
        if(stream.bytesAvailable == 0) return; 
@@ -51,7 +51,7 @@ package{
     private function update():void{
       if(isLoad){
        stream.readBytes(data,data.length);
-       ExternalInterface.call('console.log',data.toString());
+       ExternalInterface.call('mxhrmanager.getPacket',data.toString());
       }
     }
     private function close():void{

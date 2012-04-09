@@ -70,7 +70,7 @@
 		this.lastLength = 0;
 		this.ping = null;
 		this.rate = 100;
-		this.complete = null;
+		this.complete = function(){};
 		this.boundary = '\u0003'; // IE jumps over empty entries if we use the regex version instead of the string.
 		this.fieldDelimiter = '\u0001';
 		this._config = {
@@ -81,7 +81,10 @@
 			xhr: createXhrObject
 		};
 		mix(this._config, config);
-		if (useSwfXhr) this.prototype.load = createSwfObject();
+		if (useSwfXhr) this.prototype.load = function(){
+            var loader = createSwfObject();
+            loader(this._config.url);
+        };
 	};
 
 	mxhrmanager.prototype = {
